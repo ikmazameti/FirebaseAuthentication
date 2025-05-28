@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004217230563",
+    "project_id": "fir-authentication-cdd89",
+    "storage_bucket": "fir-authentication-cdd89.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004217230563:android:fc14d90eeb96d332d591d6",
+        "android_client_info": {
+          "package_name": "io.mawuliazameti.authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSjlTjqZH554IK-9JXRN34SZI-01_cPJM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
