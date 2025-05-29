@@ -13,11 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
  import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 @Composable
 fun HomeScreen(navController: NavController) {
+    val auth = Firebase.auth
 
     Column(
         modifier = Modifier
@@ -27,13 +29,13 @@ fun HomeScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center
     ) {
         //TODO: access user data
-        Text("Welcome, User!")
+
+        Text("Welcome, ${auth.currentUser?.email}!")
         Spacer(Modifier.height(16.dp))
 
         Button(onClick = {
             //TODO:  user logout
-
-
+            auth.signOut()
              navController.navigate("login") {
                 popUpTo("home") { inclusive = true }
             }

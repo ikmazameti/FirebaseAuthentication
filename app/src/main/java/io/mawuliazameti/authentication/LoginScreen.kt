@@ -46,6 +46,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
  import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun LoginScreen(navController: NavController,  ) {
@@ -62,6 +64,7 @@ fun LoginScreen(navController: NavController,  ) {
     var password by rememberSaveable { mutableStateOf("") }
     val isFormValid = email.isNotBlank() && password.isNotBlank()
     val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    val auth = Firebase.auth
 
     Column(
         modifier = Modifier
@@ -169,8 +172,15 @@ fun LoginScreen(navController: NavController,  ) {
         Button(
             onClick = {
                 //TODO:  user login
-                navController.navigate("home")
-
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            navController.navigate("home")
+                        } else {
+                            Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
             },
             enabled = isFormValid && isEmailValid,
             colors  = ButtonDefaults.buttonColors(

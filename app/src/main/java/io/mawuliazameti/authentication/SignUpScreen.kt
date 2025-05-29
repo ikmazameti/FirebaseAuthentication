@@ -63,7 +63,7 @@ fun SignUpScreen(navController: NavController) {
     var password by rememberSaveable { mutableStateOf("") }
     val isFormValid = email.isNotBlank() && password.isNotBlank()
     val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
-
+    val auth = Firebase.auth
 
     Column(
         modifier = Modifier
@@ -171,9 +171,15 @@ fun SignUpScreen(navController: NavController) {
         Button(
             onClick = {
                 //TODO:  user sign up
-
-                navController.navigate("home")
-
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            navController.navigate("home")
+                        } else {
+                            Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF6200EE),
